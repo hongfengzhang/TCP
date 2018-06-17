@@ -16,9 +16,9 @@ public class ClientFrame extends Frame {
 	private String username;
 	private ObjectOutputStream os;
 	private ObjectInputStream is;
-	// ´´½¨¶àĞĞÎÄ±¾Óò¶ÔÏó
+	// åˆ›å»ºå¤šè¡Œæ–‡æœ¬åŸŸå¯¹è±¡
 	private TextArea textarea = new TextArea();
-	// ´´½¨Ò»¸öµ¥ĞĞÎÄ±¾¿ò¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªå•è¡Œæ–‡æœ¬æ¡†å¯¹è±¡
 	private TextField messageInput = new TextField();
 
 	public ClientFrame(String username, ObjectOutputStream os,ObjectInputStream is) {
@@ -26,33 +26,33 @@ public class ClientFrame extends Frame {
 		this.os=os;
 		this.is=is;
 
-		// »æÖÆ´°¿Ú
+		// ç»˜åˆ¶çª—å£
 		draw();
-		// ĞÂ½¨UDPÏß³Ì²¢Æô¶¯
+		// æ–°å»ºUDPçº¿ç¨‹å¹¶å¯åŠ¨
 		new MessageReceiver().start();
 	}
 
 	private void draw() {
 		this.setTitle(username);
-		// ÉèÖÃ×ø±ê
+		// è®¾ç½®åæ ‡
 		this.setLocation(300, 200);
-		// ÉèÖÃ¿í¸ß
+		// è®¾ç½®å®½é«˜
 		this.setSize(400, 400);
-		// Ìí¼ÓÎÄ±¾Óò
+		// æ·»åŠ æ–‡æœ¬åŸŸ
 		this.add(textarea, BorderLayout.NORTH);
 		textarea.setEditable(false);
 
-		// ´´½¨Ò»¸öpanelÃæ°å£¬Ö¸¶¨Ò»¸öBorderLayout²¼¾Ö¹ÜÀíÆ÷
+		// åˆ›å»ºä¸€ä¸ªpanelé¢æ¿ï¼ŒæŒ‡å®šä¸€ä¸ªBorderLayoutå¸ƒå±€ç®¡ç†å™¨
 		Panel panel = new Panel(new BorderLayout());
 
-		// ½«panelÌí¼Óµ½´°¿ÚÉÏÃæ,Ö¸¶¨Î»ÖÃ
+		// å°†panelæ·»åŠ åˆ°çª—å£ä¸Šé¢,æŒ‡å®šä½ç½®
 		this.add(panel, BorderLayout.SOUTH);
 
 		panel.add(messageInput, BorderLayout.CENTER);
 
-		// ´´½¨°´Å¥¶ÔÏó
-		Button sendButton = new Button("·¢ËÍ");
-		// ½«°´Å¥ºÍÊäÈë¿òÌí¼Óµ½panelÉÏÃæ,Ö¸¶¨Î»ÖÃ
+		// åˆ›å»ºæŒ‰é’®å¯¹è±¡
+		Button sendButton = new Button("å‘é€");
+		// å°†æŒ‰é’®å’Œè¾“å…¥æ¡†æ·»åŠ åˆ°panelä¸Šé¢,æŒ‡å®šä½ç½®
 		panel.add(sendButton, BorderLayout.EAST);
 
 		sendButton.addActionListener(new ActionListener() {
@@ -66,7 +66,7 @@ public class ClientFrame extends Frame {
 					messageInput.setText("");
 
 					try {
-						// ·¢ËÍÏûÏ¢
+						// å‘é€æ¶ˆæ¯
 						os.writeObject(message);
 						os.flush();
 						
@@ -77,16 +77,16 @@ public class ClientFrame extends Frame {
 			}
 		});
 
-		this.pack();// ×ÔÊÊÓ¦´óĞ¡
+		this.pack();// è‡ªé€‚åº”å¤§å°
 
-		/** Ìí¼Ó´°¿Ú¼àÌıÆ÷£¬ÖØĞ´´°¿Ú¹Ø±ÕÊÂ¼ş */
+		/** æ·»åŠ çª—å£ç›‘å¬å™¨ï¼Œé‡å†™çª—å£å…³é—­äº‹ä»¶ */
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//·¢ËÍÍË³öÏûÏ¢
-				Message message = new Message(username, "ÏÂÏßÁË",Constants.EXIT);
+				//å‘é€é€€å‡ºæ¶ˆæ¯
+				Message message = new Message(username, "ä¸‹çº¿äº†",Constants.EXIT);
 				try {
-					// ·¢ËÍÏûÏ¢
+					// å‘é€æ¶ˆæ¯
 					os.writeObject(message);
 					os.flush();
 					
@@ -98,18 +98,18 @@ public class ClientFrame extends Frame {
 			}
 		});
 
-		// ÉèÖÃ´°¿Ú¿É¼û
+		// è®¾ç½®çª—å£å¯è§
 		this.setVisible(true);
 	}
 
-	// ½ÓÊÕÁ¬½Ó£¨3£©
+	// æ¥æ”¶è¿æ¥ï¼ˆ3ï¼‰
 	class MessageReceiver extends Thread {
 		@Override
 		public void run() {
 			try {
 				while (true) {
 					Message message = (Message) is.readObject();
-					// ÏòÎÄ±¾ÓòÌí¼ÓĞÅÏ¢
+					// å‘æ–‡æœ¬åŸŸæ·»åŠ ä¿¡æ¯
 					textarea.setText(textarea.getText() + message + "\n");
 				}
 			} catch (ClassNotFoundException e) {

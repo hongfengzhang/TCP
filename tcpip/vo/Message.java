@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Message implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private String fromUser;//ÏûÏ¢·¢ËÍÕß
-	private String content;//ÏûÏ¢ÄÚÈİ
-	private Constants type;//±íÊ¾ÏûÏ¢ÀàĞÍ£¬È¡ÖµÔÚConstantsÀàÖĞ
+	private String fromUser;//æ¶ˆæ¯å‘é€è€…
+	private String content;//æ¶ˆæ¯å†…å®¹
+	private Constants type;//è¡¨ç¤ºæ¶ˆæ¯ç±»å‹ï¼Œå–å€¼åœ¨Constantsç±»ä¸­
 
 	public Message(String fromUser, String content) {
 		super();
@@ -44,6 +44,6 @@ public class Message implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return fromUser +"   Ëµ£º  " + content;
+		return fromUser +"   è¯´ï¼š  " + content;
 	}
 }

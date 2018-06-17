@@ -39,21 +39,21 @@ public class LoginFrame extends Frame{
 	
 	private void initialize() {
 		loginWindow=this;
-		this.setTitle("µÇÂ¼");
+		this.setTitle("ç™»å½•");
 		this.setSize(314, 180);
-		this.setResizable(false);//´°Ìå´óĞ¡²»¿É±ä
-		//ÉèÖÃ¾ÓÖĞ
+		this.setResizable(false);//çª—ä½“å¤§å°ä¸å¯å˜
+		//è®¾ç½®å±…ä¸­
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		int x = (int)((d.getWidth()-314)/2);
 		int y = (int)((d.getHeight()-180)/2);
 		this.setLocation(x, y);
-		//ÉèÖÃÍ¼±ê
+		//è®¾ç½®å›¾æ ‡
 		URL url=ClassLoader.getSystemClassLoader().getResource("res/qq.png");
 		Image image=Toolkit.getDefaultToolkit().getImage(url);
 		this.setIconImage(image);
 		
-		//»æÖÆ´°Ìå
+		//ç»˜åˆ¶çª—ä½“
 		draw();
 		
 		this.addWindowListener(new WindowAdapter() {
@@ -63,7 +63,7 @@ public class LoginFrame extends Frame{
 				
 			}
 		});
-		//ÉèÖÃ¿É¼û
+		//è®¾ç½®å¯è§
 		this.setVisible(true);
 	}
 	
@@ -78,7 +78,7 @@ public class LoginFrame extends Frame{
 		
 		Panel usernamePanel=new Panel();
 //		usernamePanel.setLayout(new FlowLayout());
-		Label usernameLabel=new Label("ÓÃ»§Ãû£º");
+		Label usernameLabel=new Label("ç”¨æˆ·åï¼š");
 		usernamePanel.add(usernameLabel);
 //		TextField username=new TextField();
 		username=new TextField();
@@ -87,7 +87,7 @@ public class LoginFrame extends Frame{
 		
 		Panel passwordPanel=new Panel();
 //		usernamePanel.setLayout(new FlowLayout());
-		Label passwordLabel=new Label("ÃÜ  Âë£º");
+		Label passwordLabel=new Label("å¯†  ç ï¼š");
 		passwordPanel.add(passwordLabel);
 //		TextField password=new TextField();
 //		password.setColumns(20);
@@ -98,9 +98,9 @@ public class LoginFrame extends Frame{
 		
 		Panel buttonPanel=new Panel();
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,50,0));
-		Button login=new Button("µÇ  Â¼");
-		Button canel=new Button("È¡  Ïû");
-		Button register=new Button("×¢  ²á");
+		Button login=new Button("ç™»  å½•");
+		Button canel=new Button("å–  æ¶ˆ");
+		Button register=new Button("æ³¨  å†Œ");
 		
 		buttonPanel.add(login);
 		buttonPanel.add(canel);
@@ -111,7 +111,7 @@ public class LoginFrame extends Frame{
 		content.add(buttonPanel);
 		this.add(content);
 		
-		//ÉèÖÃµÇÂ¼°´Å¥
+		//è®¾ç½®ç™»å½•æŒ‰é’®
 		login.addActionListener(new ActionListener() {
 			
 			@Override
@@ -127,7 +127,7 @@ public class LoginFrame extends Frame{
 				if(!"".equals(usernameStr) && !"".equals(passwordStr)){
 					Socket socket=null;
 					try {
-						// ´´½¨Ò»¸ösocket¶ÔÏó
+						// åˆ›å»ºä¸€ä¸ªsocketå¯¹è±¡
 						socket = new Socket("127.0.0.1", 9999);
 						ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
 						Message message=new Message(usernameStr,passwordStr,Constants.LOGIN);
@@ -137,12 +137,12 @@ public class LoginFrame extends Frame{
 						ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
 						Message m=(Message) is.readObject();
 						if(m==null || m.getType()==Constants.LOGIN_FAILURE){
-							JOptionPane.showMessageDialog(register.getParent(),"µÇÂ¼Ê§°Ü£¬ÓÃ»§Ãû»òÃÜÂë´íÎó", "¾¯¸æĞÅÏ¢", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(register.getParent(),"ç™»å½•å¤±è´¥ï¼Œç”¨æˆ·åæˆ–å¯†ç é”™è¯¯", "è­¦å‘Šä¿¡æ¯", JOptionPane.WARNING_MESSAGE);
 						}else if(m!=null && m.getType()==Constants.LOGIN_SUCCESS){
-							//Òş²ØµÇÂ¼´°¿Ú
+							//éšè—ç™»å½•çª—å£
 							loginWindow.setVisible(false);
 							
-							//´ò¿ªÁÄÌì´°¿Ú
+							//æ‰“å¼€èŠå¤©çª—å£
 							new ClientFrame(usernameStr,os,is);
 						}
 					} catch (UnknownHostException e1) {
@@ -157,7 +157,7 @@ public class LoginFrame extends Frame{
 			}
 		});
 		
-		//ÉèÖÃÈ¡Ïû°´Å¥
+		//è®¾ç½®å–æ¶ˆæŒ‰é’®
 		canel.addActionListener(new ActionListener() {
 			
 			@Override
@@ -167,7 +167,7 @@ public class LoginFrame extends Frame{
 			}
 		});
 		
-		//ÉèÖÃ×¢²á°´Å¥
+		//è®¾ç½®æ³¨å†ŒæŒ‰é’®
 		register.addActionListener(new ActionListener() {
 			
 			@Override
@@ -183,10 +183,10 @@ public class LoginFrame extends Frame{
 				if(!"".equals(usernameStr) && !"".equals(passwordStr)){
 					Socket socket=null;
 					try {
-						// ´´½¨Ò»¸ösocket¶ÔÏó
+						// åˆ›å»ºä¸€ä¸ªsocketå¯¹è±¡
 						socket = new Socket("127.0.0.1", 9999);
 						
-						//¸ø·şÎñÆ÷¶Ë·¢ËÍ×¢²áĞÅÏ¢
+						//ç»™æœåŠ¡å™¨ç«¯å‘é€æ³¨å†Œä¿¡æ¯
 						ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
 						Message message=new Message(usernameStr,passwordStr,Constants.REGISTER);
 						os.writeObject(message);
@@ -195,9 +195,9 @@ public class LoginFrame extends Frame{
 						ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
 						Message m=(Message) is.readObject();
 						if(m==null || m.getType()==Constants.REGISTER_FAILURE){
-							JOptionPane.showMessageDialog(register.getParent(),"×¢²áÊ§°Ü£¬ÓÃ»§ÃûÒÑ´æÔÚ", "¾¯¸æĞÅÏ¢", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(register.getParent(),"æ³¨å†Œå¤±è´¥ï¼Œç”¨æˆ·åå·²å­˜åœ¨", "è­¦å‘Šä¿¡æ¯", JOptionPane.WARNING_MESSAGE);
 						}else if(m!=null && m.getType()==Constants.REGISTER_SUCCESS){
-							 JOptionPane.showMessageDialog(register.getParent(),"×¢²á³É¹¦", "ÌáÊ¾ÏûÏ¢", JOptionPane.INFORMATION_MESSAGE); 
+							 JOptionPane.showMessageDialog(register.getParent(),"æ³¨å†ŒæˆåŠŸ", "æç¤ºæ¶ˆæ¯", JOptionPane.INFORMATION_MESSAGE); 
 						}
 						socket.close();
 					} catch (UnknownHostException e1) {

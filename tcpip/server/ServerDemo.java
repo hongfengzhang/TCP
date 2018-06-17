@@ -13,7 +13,7 @@ import com.atguigu.vo.Constants;
 import com.atguigu.vo.Message;
 
 public class ServerDemo {
-	//Ïß³Ì°²È«µÄ
+	//çº¿ç¨‹å®‰å…¨çš„
 	private static Vector<Socket> clients = new Vector<Socket>();
 	
 	private static HashMap<Socket,ObjectOutputStream> maps=new HashMap<Socket,ObjectOutputStream>();
@@ -28,11 +28,11 @@ public class ServerDemo {
 				
 				if(m!=null && m.getType()==Constants.REGISTER){
 					
-					//¸ø¿Í»§¶Ë·´À¡×¢²á½á¹û
+					//ç»™å®¢æˆ·ç«¯åé¦ˆæ³¨å†Œç»“æœ
 					ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
 					Message message=null;
 					boolean flag=false;
-					//ÅĞ¶ÏÊÇ·ñ×¢²á³É¹¦£¬²é¿´ÓÃ»§ÃûÊÇ·ñÒÑ¾­´æÔÚ
+					//åˆ¤æ–­æ˜¯å¦æ³¨å†ŒæˆåŠŸï¼ŒæŸ¥çœ‹ç”¨æˆ·åæ˜¯å¦å·²ç»å­˜åœ¨
 					Constants type = null;
 					if(flag){
 						type = Constants.REGISTER_SUCCESS;
@@ -47,7 +47,7 @@ public class ServerDemo {
 				}else if(m!=null && m.getType()==Constants.LOGIN){
 					ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
 					Message message=null;
-					//ÅĞ¶ÏÊÇ·ñµÇÂ¼³É¹¦
+					//åˆ¤æ–­æ˜¯å¦ç™»å½•æˆåŠŸ
 					boolean flag=true;
 					
 					
@@ -55,10 +55,10 @@ public class ServerDemo {
 						message=new Message(m.getFromUser(),m.getContent(),Constants.LOGIN_SUCCESS);
 						os.writeObject(message);
 						os.flush();
-						//±£´æÃ¿Ò»¸öÁ¬½ÓµÄÓÃ»§
+						//ä¿å­˜æ¯ä¸€ä¸ªè¿æ¥çš„ç”¨æˆ·
 						clients.add(s);
 						maps.put(s, os);
-						//Îª¸Ã¿Í»§¶Ë´´½¨Ò»¸öÏûÏ¢´¦ÀíÏß³Ì
+						//ä¸ºè¯¥å®¢æˆ·ç«¯åˆ›å»ºä¸€ä¸ªæ¶ˆæ¯å¤„ç†çº¿ç¨‹
 						new MsgHandler(s,is).start();
 						
 					}else{
@@ -92,7 +92,7 @@ public class ServerDemo {
 		public void run() {
 			while(true) {
 				try {
-					//½ÓÊÕµ±Ç°socket·¢¹ıÀ´µÄÏûÏ¢
+					//æ¥æ”¶å½“å‰socketå‘è¿‡æ¥çš„æ¶ˆæ¯
 					Message message=(Message) dis.readObject();
 					
 					if(name==null){
@@ -102,12 +102,12 @@ public class ServerDemo {
 					System.out.println(message);
 					
 					
-					//±éÀúclients¼¯ºÏ£¬½«ÏûÏ¢°¤¸ö·¢ËÍ¸øÃ¿¸ö¿Í»§¶Ë
+					//éå†clientsé›†åˆï¼Œå°†æ¶ˆæ¯æŒ¨ä¸ªå‘é€ç»™æ¯ä¸ªå®¢æˆ·ç«¯
 					synchronized(clients) {
-						ArrayList<Socket> offline = new ArrayList<Socket>();//µôÏß¶ÓÁĞ
+						ArrayList<Socket> offline = new ArrayList<Socket>();//æ‰çº¿é˜Ÿåˆ—
 						
 						for(Socket s : clients) {
-							if(s == socket) {//¹ıÂËµôµ±Ç°socket
+							if(s == socket) {//è¿‡æ»¤æ‰å½“å‰socket
 								continue;
 							}
 							try {
@@ -134,7 +134,7 @@ public class ServerDemo {
 					synchronized(clients) {
 						clients.remove(socket);
 						maps.remove(socket);
-						System.out.println(name+"ÏÂÏßÁË¡£");
+						System.out.println(name+"ä¸‹çº¿äº†ã€‚");
 					}
 					return ;
 				} catch (ClassNotFoundException e) {
